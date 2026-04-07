@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Diabetic Retinopathy Detection</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      background: linear-gradient(135deg, #1e3a8a, #2563eb);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 850px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 14px;
+      color: #d1d5db;
+      margin-bottom: 25px;
+    }
+
+    .upload-box {
+      border: 2px dashed #93c5fd;
+      border-radius: 12px;
+      padding: 25px;
+      text-align: center;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+
+    .upload-box:hover {
+      background: rgba(255,255,255,0.1);
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    .btn {
+      margin-top: 15px;
+      background: #22c55e;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #16a34a;
+    }
+
+    .result {
+      margin-top: 25px;
+      background: rgba(255,255,255,0.15);
+      padding: 20px;
+      border-radius: 12px;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .prediction {
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .confidence {
+      font-size: 14px;
+      color: #e5e7eb;
+      margin-top: 5px;
+    }
+
+    .preview img {
+      max-width: 250px;
+      border-radius: 10px;
+      border: 2px solid rgba(255,255,255,0.2);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      margin-top: 8px;
+    }
+
+    .mild { background: #facc15; color: #000; }
+    .moderate { background: #fb923c; }
+    .severe { background: #ef4444; }
+    .normal { background: #22c55e; }
+
+    footer {
+      text-align: center;
+      font-size: 12px;
+      margin-top: 20px;
+      color: #cbd5f5;
+    }
+
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>Diabetic  Retinopathy Detector</h1>
+  <p class="subtitle">Upload a retinal image and detect DR stage instantly</p>
+
+  <form method="post" enctype="multipart/form-data">
+
+    <label class="upload-box">
+      <p>📁 Click to upload or drag & drop image</p>
+      <input type="file" name="file" required>
+    </label>
+
+    <div style="text-align:center;">
+      <button class="btn" type="submit">Analyze Image</button>
+    </div>
+
+  </form>
+
+  {% if filename %}
+  <div class="result">
+
+    <div>
+      <div class="prediction">Prediction: {{ prediction }}</div>
+
+      {% if confidence %}
+      <div class="confidence">
+        Confidence: {{ '%.2f' | format(confidence * 100) }}%
+      </div>
+      {% endif %}
+
+      <!-- Optional: Add color badge -->
+      <div class="badge">
+        {{ prediction }}
+      </div>
+    </div>
+
+    <div class="preview">
+      <img src="/uploads/{{ filename }}" alt="uploaded image">
+    </div>
+
+  </div>
+  {% endif %}
+
+  <footer>
+    By SAFI MAZ || SOUBHAGYA RANJAN|| ASHIS PUTHAL
+  </footer>
+
+</div>
+
+</body>
+</html>
